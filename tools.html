@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Diet.io Tools</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+    var calo = "";
+    function getU()
+    {
+      $.ajax({
+          type: "POST",
+          url: "getU.php",
+          cache: false,
+          success: function(result){
+                document.getElementById("nameo").innerHTML='<b>'+result+'</b>';
+              }
+      });
+    }
+
+    function CalB()
+    {
+      var h = $('#height').val() / 100;
+      var w = $('#weight').val();
+      var age = $('#age').val();
+      var gender = $('#gender').val();
+      var bmi = w / (h*h);
+
+      if(bmi <= 16)
+      document.getElementById("res").innerHTML= "<hr><p class = 'w3-text-red'>Severe Thinness&nbsp<b>" + Math.round(bmi)+"</b></p>" ;
+      else if (bmi >=16 && bmi <=18.5 )
+      document.getElementById("res").innerHTML="<hr><p class = 'w3-text-green'>Mild Thinness&nbsp<b>" + Math.round(bmi)+"</b></p>" ;
+      else if (bmi >=18.5 && bmi <=25)
+      document.getElementById("res").innerHTML= "<hr><p class = 'w3-text-green'>Normal<b>&nbsp" + Math.round(bmi)+"</b></p>" ;
+      else if (bmi >=25 && bmi <=30)
+      document.getElementById("res").innerHTML= "<hr><p class = 'w3-text-red'>Overweight&nbsp<b>" + Math.round(bmi)+"</b></p>" ;
+      else
+      document.getElementById("res").innerHTML= "<hr><p class = 'w3-text-red'>Obese Class&nbsp<b>" + Math.round(bmi)+"</b></p>" ;
+
+
+
+    }
+
+    function CalC()
+    {
+      var h = $('#height').val();
+      var w = $('#weight').val();
+      var age = $('#age').val();
+      var gender = $('#gender').val();
+      var exercise = $('#exercise').val();
+      var total=0;
+
+      if(gender == "male")
+      {
+        total = exercise * (066 + (13.7 * w) + (5 * h) - (6.8 * age));
+
+      }
+      else
+      {
+        total = exercise * (655 + (9.6 * w) + (1.8 * h) - (4.7 * age));
+
+      }
+      document.getElementById("res").innerHTML= "<hr><p class = 'w3-text-green'>You need<b>&nbsp" + Math.round(total) + "&nbsp</b>Calories/day to maintain your weight.<p><br><p class = 'w3-text-red'>	You need <b>&nbsp" +Math.round(total-500)+ "&nbsp</b> Calories/day to lose 0.5kg per week.</p><br><p class = 'w3-text-red'>You need <b>&nbsp" +Math.round(total-1000)+ "&nbsp </b>Calories/day to lose 1 kg per week.</p><br><p class = 'w3-text-green'>	You need <b>&nbsp" +Math.round(total+500)+ "&nbsp</b> Calories/day to gain 0.5 kg per week.</p><br><p class = 'w3-text-green'>You need <b>&nbsp" +Math.round(total+1000)+ "&nbsp</b> Calories/day to gain 1kg per week.</p>";
+    }
+
+    function logout()
+    {
+
+
+      $.ajax({
+      type: "POST",
+      url: "logout.php",
+
+      success: function(result){
+        alert(result);
+        setInterval(function(){window.location.replace("index.html")},2000);
+      }
+      });
+    }
+
+</script>
+
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+.w3-allerta {
+  font-family: "Allerta Stencil", Sans-serif;
+}
+</style>
+
+</head>
+<body class="w3-light-grey" onload="getU();">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-xlarge" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-allerta "><b><span class = "w3-red ">&nbspD </span><span class = "w3-yellow">&nbspI </span><span class = "w3-green">&nbspE </span><span class = "w3-purple ">&nbspT&nbsp</span><span class = "w3-deep-orange "> .io&nbsp</span></b></span>
+  <button class="w3-button w3-round-xxlarge w3-hover-black w3-right w3-large" onclick="logout();" >Logout <i class="fa fa-power-off"></i></button>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+
+    <div class="w3-col s8 w3-bar">
+      <span>Welcome, <span id = "nameo"></span></span><br>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="dashboard.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>  Diet Plan</a>
+    <a href="tools.html" class="w3-bar-item w3-button w3-padding  w3-blue"><i class="fa fa-eye fa-fw"></i> Tools</a>
+    <a href="chatbox.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-comments-o"></i> Chat Box</a>
+    <a href="settings.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cogs"></i> Settings</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  About US</a><br><br>
+
+      <h4 class="w3-right w3-bottom">  <hr>&nbsp&nbsp&nbsp&nbsp© 2017 Diet.io</h4>
+
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+  <!-- Header -->
+
+
+
+  <div class="w3-panel">
+    <div class="w3-row-padding w3-container" style="margin:0 -16px">
+      <header  style="padding-top:22px">
+        <h5><b><i class="fa fa-cogs"></i> Tools </b></h5>
+      </header>
+
+      <div class="w3-row  w3-margin-top ">
+        <div class=" w3-container   w3-half">
+          <div class = "w3-card-2 w3-leftbar w3-border-red w3-center w3-container w3-white">
+          <h2>Calculator</h2>
+          <p><input class="w3-input w3-padding-16 w3-border-bottom" type="number" placeholder="Age" required id="age"></p>
+          <p><select id="gender" class="w3-input w3-border-bottom">
+            <option value="" disabled selected>Select your Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select></p>
+
+
+          <p><input class="w3-input w3-padding-16 w3-border-bottom" type="number" placeholder="Height in Cm" required id="height"></p>
+
+          <p><input class="w3-input w3-padding-16 w3-border-bottom" type="number" placeholder="Weight in Cm" required id="weight"></p>
+
+            <p><select id="exercise" class="w3-input  ">
+              <option value="" disabled selected>Select your exercise level</option>
+              <option value="1.2">Sedentary (little or no exercise)</option>
+              <option value="1.375">Lightly active (1-2 days a week)</option>
+              <option value="1.55">Moderately active (3-5 days per week)</option>
+              <option value="1.725">Very active (6-7 days a week)</option>
+              <option value="1.9">Extremely active (intense exercise)</option>
+            </select></p>
+            <br>
+
+          <span><button class="w3-button w3-blue w3-round-xxlarge" onclick="CalB();">BMI</button>
+            <button class="w3-button w3-blue w3-round-xxlarge" onclick="CalC();">Calories</button></span>
+            <br><br>
+            <div id ="res"></div>
+        </div>
+        </div>
+
+        <div class="w3-half w3-container">
+          <div class = "w3-card-2 w3-leftbar w3-border-yellow  w3-container w3-white">
+         <h2>Instructions</h2>
+         <p>This Calorie Calculator is based on the Mifflin-St Jeor Equation which
+           calculates basal metabolic rate (BMR), and its results are based on an estimated average. The basal metabolic rate is the amount of energy expended
+            per day at rest.
+           The Mifflin-St Jeor Equation is considered the most accurate equation for calculating BMR, with the exception that the Katch-McArdle
+           Formula can be more accurate for people who are leaner that know their body fat percentage.<br>
+           For men:	BMR = 10 × weight(kg) + 6.25 × height(cm) - 5 × age(y) + 5 ; <br>
+           For women:	BMR = 10 × weight(kg) + 6.25 × height(cm) - 5 × age(y) - 161 ; <br>
+           BMI is a measurement of a person's leanness or corpulence based on their height and weight, and is intended
+           to quantify tissue mass. Although BMI has limitations in that it is an estimate that cannot take
+            body composition into account, it can be used as a general indicator of a healthy body weight based on a person's height.
+            The value obtained from the calculation of BMI is widely used to categorize whether a person is underweight, normal weight,
+            overweight, or obese depending on what range the value falls between.<br>
+            BMI =
+            mass (kg) /
+            height2 (m) ;
+
+
+ </p>
+       </div>
+       </div>
+
+  </div>
+  <br>
+
+
+  <br>
+
+
+
+  <!-- End page content -->
+</div>
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+
+
+</body>
+</html>

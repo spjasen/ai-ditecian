@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<title> Diet.io</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+body,h1,h5 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+    background-image: url('bg1.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+.w3-allerta {
+  font-family: "Allerta Stencil", Sans-serif;
+}
+
+</style>
+<script>
+
+function register()
+{
+      var name    = $('#name').val();
+      var email   = $('#email').val();
+      var age   = $('#age').val();
+      var height   = $('#height').val();
+      var weight   = $('#weight').val();
+      var password   = $('#password').val();
+      var cnfpassword   = $('#cnfpassword').val();
+      var gender   = $('#gender').val();
+
+var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+
+
+
+
+    var dataString = 'name='+ name + '&email='+ email + '&age='+ age + '&height='+ height + '&weight='+ weight + '&password='+ password +  '&cnfpassword='+ cnfpassword + '&gender='+ gender;
+
+    if(name == "" || email == "" || age =="" || height == "" || weight == "" || password == "" || cnfpassword == "" || gender == "")
+    {
+      document.getElementById("showResult").innerHTML="<h1>Fill all the fields </h1>";
+    }
+    else
+    {
+      if(email.match(mailformat))
+      {
+        if(password == cnfpassword)
+        {
+        $.ajax({
+            type: "POST",
+            url: "register.php",
+            data: dataString,
+            success: function(result){
+                document.getElementById("showResult").innerHTML=result;
+                setTimeout(function(){window.location.href='index.html'},3000);
+            }
+        });
+       }
+        else{
+          document.getElementById("showResult").innerHTML="<h1>passwords did not match :(</h1>";
+        }
+      }
+      else
+      {
+      document.getElementById("showResult").innerHTML="<h1>invalid email address :(</h1>";
+      }
+    }
+
+}
+
+function login()
+{
+        var Lemail   = $('#Lemail').val();
+        var Lpassword   = $('#Lpassword').val();
+
+
+
+      if(Lemail == "" || Lpassword == "")
+      {
+        document.getElementById("showLResult").innerHTML="<h1>Fill all the fields </h1>";
+
+      }
+      else
+      {
+
+          var dataString = 'Lpassword='+ Lpassword + '&Lemail='+ Lemail;
+          $.ajax({
+              type: "POST",
+              url: "login.php",
+              data: dataString,
+              success: function(result){
+                data = JSON.parse(result);
+      					if(data['login_status']) {
+      						document.getElementById("showLResult").innerHTML="Login Successfull. Redirecting to Homepage... &nbsp;<i class='fa fa-spinner fa-spin' aria-hidden='true'></i>";
+      						setTimeout(function(){window.location.href='dashboard.html'},2000);
+      					} else {
+      						document.getElementById("showLResult").innerHTML="No such user exists.";
+      					}
+              }
+          });
+
+      }
+}
+
+
+</script>
+<body>
+
+<div class="bgimg w3-display-container w3-text-white">
+  <div class="w3-display-middle w3-jumbo">
+    <p><span class="w3-bar-item w3-allerta "><b><span class = "w3-red ">&nbspD </span><span class = "w3-yellow">&nbspI </span><span class = "w3-green">&nbspE </span><span class = "w3-purple ">&nbspT&nbsp</span><span class = "w3-deep-orange "> .io&nbsp</span></b></span></p>
+
+  </div>
+
+  <div class="w3-display-topright w3-container w3-large">
+    <p><button onclick="document.getElementById('login').style.display='block'" class="w3-button w3-green w3-round-xxlarge">Login <i class="fa fa-heartbeat" ></i></button>
+      <button onclick="document.getElementById('signup').style.display='block'" class="w3-button w3-blue w3-round-xxlarge">Sign up <i class="fa fa-sign-in" ></i></button></p>
+
+  </div>
+  <div class="w3-display-bottomleft w3-container">
+    <p class="w3-xlarge">monday - friday 10-23 | saturday 14-02</p>
+    <p class="w3-large">Ramrao Adik Institute of Technology , NERUL</p>
+    <p>powered by Diet.io</p>
+  </div>
+</div>
+
+
+<!-- signup Modal -->
+<div id="signup" class="w3-modal ">
+  <div class="w3-modal-content w3-card-24 w3-animate-zoom">
+    <div class="w3-container w3-blue" >
+      <span onclick="document.getElementById('signup').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h1 id="showResult">Register Yourself</h1>
+    </div>
+    <div class="w3-container">
+
+        <p><input class="w3-input w3-padding-16 w3-border-bottom" type="text" placeholder="Name" required id="name"></p>
+        <p><input class="w3-input w3-padding-16 w3-border-bottom" type="email" placeholder="Email Id" required id="email"></p>
+        <p><input class="w3-input w3-padding-16 w3-border-bottom" type="number" placeholder="Age" required id="age"></p>
+        <p><select id="gender" class="w3-input w3-border-bottom">
+          <option value="" disabled selected>Select your Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select></p>
+
+        <table>
+        <tr>
+        <td><input class="w3-input w3-padding-16 w3-border-bottom" type="number" placeholder="Height" required id="height"></td>
+        <td>&nbsp&nbsp&nbsp & &nbsp&nbsp&nbsp</td>
+        <td><input class="w3-input w3-padding-16 w3-border-bottom" type="number" placeholder="Weight" required id="weight"></td>
+        <td>&nbsp&nbsp&nbsp in Centimeter &nbsp&nbsp&nbsp</td>
+        <tr>
+        </table>
+
+        <p><input class="w3-input w3-padding-16 w3-border-bottom" type="password" placeholder="Password" required id="password"></p>
+        <p><input class="w3-input w3-padding-16 w3-border-bottom" type="password" placeholder="Confirm Password" required id="cnfpassword"></p>
+        <p><button class="w3-button w3-blue w3-round" onclick="register();">Register</button></p>
+
+    </div>
+  </div>
+</div>
+
+<!-- login Modal -->
+<div id="login" class="w3-modal">
+  <div class="w3-modal-content w3-card-24 w3-animate-zoom">
+    <div class="w3-container w3-green">
+      <span onclick="document.getElementById('login').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h1 id="showLResult">Login</h1>
+    </div>
+    <div class="w3-container">
+
+        <p><input class="w3-input w3-padding-16 w3-border-bottom" type="text" placeholder="Email id" required id="Lemail"></p>
+        <p><input class="w3-input w3-padding-16 w3-border-bottom" type="password" placeholder="Password" required id="Lpassword"></p>
+        <p><button class="w3-button w3-green w3-round" onclick="login();">login</button></p>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

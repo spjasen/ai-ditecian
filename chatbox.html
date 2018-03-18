@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Diet.io ChatBox</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+    var calo = "";
+    var counter = 0;
+    function getU()
+    {
+      $.ajax({
+          type: "POST",
+          url: "getU.php",
+          cache: false,
+          success: function(result){
+                document.getElementById("nameo").innerHTML='<b>'+result+'</b>';
+                document.getElementById("nameoo").innerHTML='<b>'+result+'</b>';
+              }
+      });
+    }
+
+    function saver()
+    {
+      var vale=$("#msg").val();
+          var dataString = 'vale='+ vale;
+      $.ajax({
+          type: "POST",
+          url: "chatsaver.php",
+          data: dataString,
+          cache: false,
+          success: function(result){
+
+              }
+      });
+    }
+
+    (function($)
+    {
+        $(document).ready(function()
+        {
+
+            var $container = $("#showChat");
+            $container.load("chat.php");
+            var refreshId = setInterval(function()
+            {
+                $container.load('chat.php');
+            }, 1000);
+        });
+    })(jQuery);
+
+
+    function logout()
+    {
+
+
+      $.ajax({
+      type: "POST",
+      url: "logout.php",
+
+      success: function(result){
+        alert(result);
+        setInterval(function(){window.location.replace("index.html")},2000);
+      }
+      });
+    }
+
+</script>
+
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+.w3-allerta {
+  font-family: "Allerta Stencil", Sans-serif;
+}
+</style>
+
+</head>
+<body class="w3-light-grey" onload="getU();">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-xlarge" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-allerta "><b><span class = "w3-red ">&nbspD </span><span class = "w3-yellow">&nbspI </span><span class = "w3-green">&nbspE </span><span class = "w3-purple ">&nbspT&nbsp</span><span class = "w3-deep-orange "> .io&nbsp</span></b></span>
+  <button class="w3-button w3-round-xxlarge w3-hover-black w3-right w3-large" onclick="logout();" >Logout <i class="fa fa-power-off"></i></button>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+
+    <div class="w3-col s8 w3-bar">
+      <span>Welcome, <span id = "nameo"></span></span><br>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="dashboard.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>  Diet Plan</a>
+    <a href="tools.html" class="w3-bar-item w3-button w3-padding  "><i class="fa fa-eye fa-fw"></i> Tools</a>
+    <a href="chatbox.html" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-comments-o"></i> Chat Box</a>
+    <a href="settings.html" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cogs"></i> Settings</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>  About US</a><br><br>
+
+      <h4 class="w3-right w3-bottom">  <hr>&nbsp&nbsp&nbsp&nbsp© 2017 Diet.io</h4>
+
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+  <!-- Header -->
+
+
+
+  <div class="w3-panel">
+<br>
+    <div class="w3-card-4 w3-margin-top w3-margin-left" style="width:50%;">
+
+      <header class="w3-container w3-white  ">
+        <h2><i class="fa fa-user-circle w3-text-green" style="font-size:35px"></i> <span id = "nameoo" class = "w3-text-green"></span></h2>
+          <hr class=" w3-border-green">
+      </header>
+
+
+      <div id ="showChat" class="w3-container w3-round w3-white" style ="height:470px; overflow: scroll; overflow-x: hidden;">
+
+      </div>
+
+      <footer class="w3-container w3-border-top w3-border-green w3-white  ">
+        <br>
+        <table class="w3-table ">
+
+          <tr>
+            <td style="width:90%;"><input id="msg" class="w3-input w3-round-xxlarge w3-border  w3-border-green" type="text"></td>
+            <td><button onclick="saver();" class="w3-btn "><i class="fa fa-paper-plane w3-text-green " style="font-size:26px"></i></button></td>
+          </tr>
+
+        </table>
+      </footer>
+    </div>
+
+
+  <!-- End page content -->
+  </div>
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+
+
+</body>
+</html>

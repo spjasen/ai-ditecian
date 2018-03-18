@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vegie>
+
+
+  <veg>
+    <food>Yogurt </food>
+    <calories>100</calories>
+    <desc>Greek, nonfat (170g)</desc>
+  </veg>
+
+  <veg>
+    <food>Oatmeal</food>
+    <calories>158</calories>
+    <desc>1 cup, cooked(234g)</desc>
+  </veg>
+
+  <veg>
+    <food>Chia seeds</food>
+    <calories>86</calories>
+    <desc>Quantity 100g</desc>
+  </veg>
+
+  <veg>
+    <food>Paneer (100g)</food>
+    <calories>265</calories>
+    <desc>Calorie breakdown: 71% fat, 2% carbs, 28% protein.</desc>
+  </veg>
+
+  <veg>
+    <food>Milk, whole, 3.25%</food>
+    <calories>110</calories>
+    <desc>1 cup(244g)</desc>
+  </veg>
+
+  <veg>
+    <food>Blueberries</food>
+    <calories>85</calories>
+    <desc>1 cup (148g)</desc>
+  </veg>
+
+  <veg>
+    <food>Broccoli</food>
+    <calories>205</calories>
+    <desc>1 bunch (608g)</desc>
+  </veg>
+
+  <veg>
+    <food>Carrots</food>
+    <calories>53</calories>
+    <desc>1 cup chopped (128g)</desc>
+  </veg>
+
+  <veg>
+    <food>Cucumber</food>
+    <calories>47</calories>
+    <desc>1 cucumber (301g)</desc>
+  </veg>
+
+  <veg>
+    <food>Tomato</food>
+    <calories>32</calories>
+    <desc>1 cup chhoped (180g)</desc>
+  </veg>
+
+  <veg>
+    <food>Bread, white</food>
+    <calories>65</calories>
+    <desc>100g</desc>
+  </veg>
+
+  <veg>
+    <food>Butter</food>
+    <calories>102</calories>
+    <desc>1 tablespoon (14.2g)</desc>
+  </veg>
+
+  <veg>
+    <food>Caesar salad</food>
+    <calories>44</calories>
+    <desc>1 item 7.5oz (213g)</desc>
+  </veg>
+
+  <veg>
+    <food>Corn</food>
+    <calories>60</calories>
+    <desc>1 cup (166g)</desc>
+  </veg>
+
+  <veg>
+    <food>Rice</food>
+    <calories>216</calories>
+    <desc>1 cup (195g)</desc>
+  </veg>
+
+  <veg>
+    <food>Orange Juice</food>
+    <calories>11</calories>
+    <desc>1 cup (248g)</desc>
+  </veg>
+
+</vegie>
